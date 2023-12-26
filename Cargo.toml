@@ -9,3 +9,10 @@ edition = "2021"
 glob = "0.3.1"
 rand = "0.8.5"
 regex = "1.10.2"
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = 'abort'
+strip = true

@@ -6,12 +6,17 @@ To start, make a directory for your markdown files. For example, this will be `~
 You will want to make some markdown files. I recommend using obsidian for this!<br>
 To mark down any keywords, enclose them in double asterisks, like \*\*this**<br>
 Once you have made your files to revise, you can run the program.<br>
-1) Download the latest version from the releases page or compile from source
+1) Download the latest version from the [releases page](https://github.com/bumpjammy/revision/releases/) or [compile from source](#compile-from-source)
 2) Run the compiled program with your directory as an argument, for example:<br>
     `./revision ~/example/`
 3) It will randomly select markdown files from the directory (and subdirectories!) and quiz you on the keywords
 
 If you experience any issues with it running and not doing anything, ensure your markdown files include keywords!
+## Compile from source
+1) Clone this git repository<br>
+    `git clone https://github.com/bumpjammy/revision`
+2) Run `cargo build --release`
+3) Get the executable from `./target/releases`
 ## TODO/Planned features
 - [ ] Confidence level for each file
 - [ ] Different modes
