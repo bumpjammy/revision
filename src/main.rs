@@ -1,17 +1,19 @@
 #![feature(fs_try_exists)]
 
-use std::{env, fs, io};
-use std::io::{stdin, Write};
-use std::path::PathBuf;
 use glob::{glob, GlobResult};
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use regex::Regex;
+use std::io::{stdin, Write};
+use std::path::PathBuf;
+use std::{env, fs, io};
 
 fn main() {
     let file_path = get_file_path_string();
     loop {
-        let mut files: Vec<GlobResult> = glob(&*(file_path.to_owned() + "**/*.md")).expect("Failed to read glob pattern").collect();
+        let mut files: Vec<GlobResult> = glob(&*(file_path.to_owned() + "**/*.md"))
+            .expect("Failed to read glob pattern")
+            .collect();
         if files.is_empty() {
             panic!("This directory does not contain any markdown files! Is it correct?");
         }
@@ -29,10 +31,8 @@ fn loop_files(dir_path: &String, files: Vec<GlobResult>) {
 
 fn get_file_path_string() -> String {
     let default_path = "~/Documents/Obsidian/Example/";
-    let args:Vec<String> = env::args().collect();
-    let mut file_path = args.get(1).map_or(
-        default_path, |path| path
-    ).to_string();
+    let args: Vec<String> = env::args().collect();
+    let mut file_path = args.get(1).map_or(default_path, |path| path).to_string();
     if !file_path.ends_with('/') {
         file_path.push('/');
     }
@@ -84,14 +84,13 @@ fn print_file(file_path: &str, path: &PathBuf, line_with_keywords_removed: Strin
     let esc = 27 as char;
     print!(
         "{esc}[2J{esc}[H{esc}[1mStudying: {:?}{esc}[22m\n\n{}{esc}[30;0H",
-        formatted_path,
-        line_with_keywords_removed,
+        formatted_path, line_with_keywords_removed,
     );
     io::stdout().flush().unwrap();
 }
 
 fn get_words_between_stars(str: &str) -> Vec<String> {
-    let mut words = vec!();
+    let mut words = vec![];
     let re = Regex::new(r"\*\*(.*?)\*\*").unwrap();
     let result = re.find_iter(str);
     for word in result {
